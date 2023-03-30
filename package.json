@@ -1,0 +1,31 @@
+{
+  "name": "recovery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "truffle test",
+    "deploy:local": "hardhat run scripts/deploy.ts --network base-local",
+    "deploy:base": "hardhat run scripts/deploy.ts --network base-goerli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@truffle/hdwallet-provider": "^1.0.0",
+    "eth-lightwallet": "^4.0.0",
+    "dotenv": "^16.0.3",
+    "hardhat": "^2.13.0"
+  },
+  "dependencies": {
+    "@gnosis.pm/safe-contracts": "^1.2.0",
+    "@gnosis.pm/safe-singleton-factory": "^1.0.9",
+    "@gnosis.pm/singleton-deployer-safe-factory": "^1.0.0",
+    "@gnosis.pm/singleton-deployer-truffle": "^2.0.0",
+    "@openzeppelin/contracts": "^4.8.2",
+    "@truffle/contract": "^4.6.18",
+    "solc": "0.8.19",
+    "truffle": "^5.8.1"
+  }
+}
