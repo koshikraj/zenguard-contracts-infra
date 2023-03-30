@@ -48,5 +48,3 @@ export type { GuardianStorage } from "./contracts/storage/GuardianStorage";
 export { GuardianStorage__factory } from "./factories/contracts/storage/GuardianStorage__factory";
 export type { IGuardianStorage } from "./contracts/storage/IGuardianStorage";
 export { IGuardianStorage__factory } from "./factories/contracts/storage/IGuardianStorage__factory";
-export type { NFT } from "./contracts/test.sol/NFT";
-export { NFT__factory } from "./factories/contracts/test.sol/NFT__factory";

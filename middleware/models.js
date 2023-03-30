@@ -20,6 +20,24 @@ const recoveryAccountSchema = new Schema({
   }
 });
 
-const RecoveryAccount = mongoose.model('recoveryAccount', recoveryAccountSchema);
+const recoveryModuleSchema = new Schema({
+  recoveryModuleAddress: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  safeAddress: {
+    type: String,
+    required: false,
+    
+  },
+  assigned: {
+    type: Boolean,
+    required: true,
+  }
+});
 
-module.exports = { RecoveryAccount };
+const RecoveryAccount = mongoose.model('recoveryAccount', recoveryAccountSchema);
+const RecoveryModule = mongoose.model('recoveryModule', recoveryModuleSchema);
+
+module.exports = { RecoveryAccount, RecoveryModule };

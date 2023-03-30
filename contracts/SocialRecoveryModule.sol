@@ -66,7 +66,7 @@ contract SocialRecoveryModule {
      * @notice Throws if there is an ongoing recovery request.
      */
     modifier whenNotRecovery(address _wallet) {
-        require(recoveryRequests[_wallet].executeAfter == 0, "SM: ongoing recovery");
+        require(recoveryRequests[_wallet].executeAfter == 0, "SgetContractFactoryM: ongoing recovery");
         _;
     }
 

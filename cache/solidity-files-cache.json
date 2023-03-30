@@ -403,8 +403,8 @@
       ]
     },
     "/home/koshik/Documents/repos/safient/aa/safe-modules/recovery/contracts/SocialRecoveryModule.sol": {
-      "lastModificationDate": 1679808757246,
-      "contentHash": "ddbcaf5adcf028e0df3698721079f15d",
+      "lastModificationDate": 1680151196954,
+      "contentHash": "252519c1b8d83d30c6af9d4e996d9d7c",
       "sourceName": "contracts/SocialRecoveryModule.sol",
       "solcConfig": {
         "version": "0.8.17",

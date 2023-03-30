@@ -96,10 +96,6 @@ declare module "hardhat/types/runtime" {
       name: "IGuardianStorage",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IGuardianStorage__factory>;
-    getContractFactory(
-      name: "NFT",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.NFT__factory>;
 
     getContractAt(
       name: "IERC1271",
@@ -206,11 +202,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.IGuardianStorage>;
-    getContractAt(
-      name: "NFT",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.NFT>;
 
     // default types
     getContractFactory(
