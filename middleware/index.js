@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const { Contract, Wallet, ethers } = require("ethers");
+const jose = require('jose')
+const jwt_decode = require('jwt-decode');
+const crypto = require('crypto');
 
 const { RecoveryAccount, RecoveryModule } = require('./models');
 
@@ -21,7 +24,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
 
-mongoose.connect('mongodb://localhost:27017/recoverydb', { useNewUrlParser: true });
+mongoose.connect(process.env.RECOVERY_DB, { useNewUrlParser: true });
 
 const db = mongoose.connection;
 
@@ -30,7 +33,10 @@ db.once('open', function() {
   console.log('Connected to MongoDB');
 });
 
-app.get('/', (req, res) => {
+
+
+
+app.get('/', async (req, res) => {
   res.send('gm');
 });
 
@@ -106,6 +112,18 @@ app.post('/recovery', async (req, res) => {
 app.post('/recover', async (req, res) => {
 
   try {
+    
+    // Verify and decode the JWT
+    // const jwks = jose.createRemoteJWKSet(new URL("https://api.openlogin.com/jwks"));
+    // const jwtDecoded = await jose.jwtVerify(idToken, jwks, { algorithms: ["ES256"] });
+    
+    var jwtDecoded = jwt_decode(req.body.idToken);
+    const decodedEmailHash = crypto.createHash('sha256').update(jwtDecoded.email).digest('hex');
+
+    if(decodedEmailHash != req.body.recoveryEmailHash) {
+      throw new Error('Email verification failed');
+    }
+
     const account_details = await RecoveryAccount.find({recoveryEmailHash: req.body.recoveryEmailHash});
 
     const recoveryModuleInstance = new Contract(account_details[0].recoveryModuleAddress, JSON.parse(SocialRecoveryModule).abi, signer)
@@ -115,8 +133,8 @@ app.post('/recover', async (req, res) => {
 
     await recoveryModuleInstance.finalizeRecovery(account_details[0].safeAddress)
 
-  const response = {status: true, data: account_details[0]}
-  res.json(response);
+    const response = {status: true, data: account_details[0]}
+    res.json(response);
   }
   catch(e) {
     const response = {status: false, data: e.message}
