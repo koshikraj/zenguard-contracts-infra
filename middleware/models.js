@@ -1,7 +1,7 @@
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
+
 
 const recoveryAccountSchema = new Schema({
   recoveryEmailHash: {
@@ -9,6 +9,13 @@ const recoveryAccountSchema = new Schema({
     required: true,
     unique: true
   },
+
+  webAuthnCreds: {
+    type: Object,
+    required: false,
+    unique: true
+  },
+  
   safeAddress: {
     type: String,
     required: true,
@@ -17,7 +24,12 @@ const recoveryAccountSchema = new Schema({
   recoveryModuleAddress: {
     type: String,
     required: true
-  }
+  }, 
+  chainId: {
+    type: Number,
+    required: true,
+    
+  },
 });
 
 const recoveryModuleSchema = new Schema({
@@ -26,18 +38,14 @@ const recoveryModuleSchema = new Schema({
     required: true,
     unique: true
   },
-  safeAddress: {
-    type: String,
-    required: false,
+  chainId: {
+    type: Number,
+    required: true,
     
   },
-  assigned: {
-    type: Boolean,
-    required: true,
-  }
 });
 
-const RecoveryAccount = mongoose.model('recoveryAccount', recoveryAccountSchema);
-const RecoveryModule = mongoose.model('recoveryModule', recoveryModuleSchema);
+export const RecoveryAccount = mongoose.model('recoveryAccount', recoveryAccountSchema);
+export const RecoveryModule = mongoose.model('recoveryModule', recoveryModuleSchema);
 
-module.exports = { RecoveryAccount, RecoveryModule };
+// module.exports = { RecoveryAccount, RecoveryModule };
