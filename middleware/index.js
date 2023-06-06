@@ -32,7 +32,12 @@ import bodyParser from 'body-parser';
 app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
 
-mongoose.connect(process.env.RECOVERY_DB, { useNewUrlParser: true });
+console.log(process.env.DB_PASSWORD)
+const connectionString = `mongodb://${process.env.DB_USERNAME}:${encodeURIComponent(process.env.DB_PASSWORD)}@${process.env.DB_HOST}`;
+console.log(connectionString)
+
+mongoose.connect(connectionString, { dbName:'recoverydb', useNewUrlParser: true });
+
 
 const db = mongoose.connection;
 

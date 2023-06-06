@@ -42,6 +42,8 @@ export type { ISignatureValidator } from "./@safe-contracts/contracts/interfaces
 export { ISignatureValidator__factory } from "./factories/@safe-contracts/contracts/interfaces/ISignatureValidator__factory";
 export type { Safe } from "./@safe-contracts/contracts/Safe";
 export { Safe__factory } from "./factories/@safe-contracts/contracts/Safe__factory";
+export type { SampleNFT } from "./contracts/SampleNFT";
+export { SampleNFT__factory } from "./factories/contracts/SampleNFT__factory";
 export type { SocialRecoveryModule } from "./contracts/SocialRecoveryModule";
 export { SocialRecoveryModule__factory } from "./factories/contracts/SocialRecoveryModule__factory";
 export type { GuardianStorage } from "./contracts/storage/GuardianStorage";

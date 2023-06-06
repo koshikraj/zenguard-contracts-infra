@@ -85,6 +85,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Safe__factory>;
     getContractFactory(
+      name: "SampleNFT",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SampleNFT__factory>;
+    getContractFactory(
       name: "SocialRecoveryModule",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SocialRecoveryModule__factory>;
@@ -187,6 +191,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Safe>;
+    getContractAt(
+      name: "SampleNFT",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SampleNFT>;
     getContractAt(
       name: "SocialRecoveryModule",
       address: string,
