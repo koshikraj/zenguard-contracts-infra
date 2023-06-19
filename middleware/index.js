@@ -9,6 +9,7 @@ import { Contract, Wallet, ethers } from "ethers";
 import jwt_decode from 'jwt-decode';
 import crypto from 'crypto';
 import { server } from '@passwordless-id/webauthn' 
+import { NetworkUtil } from './networks.js';
 
 import { RecoveryAccount, RecoveryModule } from './models.js';
 
@@ -125,8 +126,7 @@ app.post('/recovery', async (req, res) => {
 
   let account;
   if(account_details.length) { 
-    const response = {status: false, data: account_details[0]}
-    account = await RecoveryAccount.findOneAndUpdate({recoveryEmailHash: req.body.recoveryEmailHash}, { $set: {webAuthnCreds: req.body.webAuthnData.credential, safeAddress: req.body.safeAddress, recoveryModuleAddress: recovery_modules[0].recoveryModuleAddress, chainId: req.body.chainId}})
+    account = await RecoveryAccount.findOneAndUpdate({recoveryEmailHash: req.body.recoveryEmailHash}, { $set: {webAuthnCreds: req.body.webAuthnData.credential, safeAddress: req.body.safeAddress, recoveryModuleAddress: recovery_modules[0].recoveryModuleAddress, chainId: req.body.chainId}}, {new: true})
 
     }
     else {
@@ -151,10 +151,6 @@ app.post('/recover', async (req, res) => {
   let account_details;
   try {
     
-    // Verify and decode the JWT
-    // const jwks = jose.createRemoteJWKSet(new URL("https://api.openlogin.com/jwks"));
-    // const jwtDecoded = await jose.jwtVerify(idToken, jwks, { algorithms: ["ES256"] });
-    
       if( req.body.type == 'email') {
         var jwtDecoded = jwt_decode(req.body.idToken);
         const decodedEmailHash = crypto.createHash('sha256').update(jwtDecoded.email).digest('hex');
@@ -168,19 +164,25 @@ app.post('/recover', async (req, res) => {
 
     console.log(account_details[0])
 
-    let signer;
+    // let signer;
 
-    if(account_details[0].chainId == 137) {
-      signer = signerPolygon;
-    }
+    // if(account_details[0].chainId == 137) {
+    //   signer = signerPolygon;
+    // }
 
-    else if(account_details[0].chainId == 84531) {
-      signer = signerBase;
-    }
+    // else if(account_details[0].chainId == 84531) {
+    //   signer = signerBase;
+    // }
 
-    else  {
-      signer = signerBase;
-    }
+    // else  {
+    //   signer = signerBase;
+    // }
+
+    console.log(NetworkUtil.getNetworkById(account_details[0].chainId))
+    const providerBase = new ethers.JsonRpcProvider(NetworkUtil.getNetworkById(account_details[0].chainId).url);
+    
+    const signer  = wallet.connect(providerBase)
+
 
     console.log(account_details[0].recoveryModuleAddress)
 

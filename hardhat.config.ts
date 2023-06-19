@@ -13,8 +13,18 @@ const config: HardhatUserConfig = {
       url: 'https://goerli.base.org',
       accounts: [process.env.WALLET_KEY as string],
     },
+
+    'ethereum-goerli': {
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.WALLET_KEY as string],
+    },
+
+    'gnosis': {
+      url: `https://rpc.gnosischain.com`,
+      accounts: [process.env.WALLET_KEY as string],
+    },
     // for local dev environment
-    'base-local': {
+    'local': {
       url: 'http://localhost:8545',
       accounts: [process.env.WALLET_KEY_LOCAL as string],
     },

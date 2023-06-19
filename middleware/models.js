@@ -36,11 +36,11 @@ const recoveryModuleSchema = new Schema({
   recoveryModuleAddress: {
     type: String,
     required: true,
-    unique: true
   },
   chainId: {
     type: Number,
     required: true,
+    unique: true
     
   },
 });
